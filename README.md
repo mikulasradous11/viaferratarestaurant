@@ -39,7 +39,7 @@ Pronájem celé restaurace: poptávkový formulář připraví e-mail. Kdyby se 
 - [ ] E-mail `restaurace@penzionferrata.cz` – ověřit nebo nahradit
 - [ ] Odkazy na Facebook a Instagram (v patičce teď vedou na `#`)
 - [x] Doména www.viaferratarestaurant.cz (z jídelního lístku)
-- [ ] Stálý jídelní lístek: položky a ceny (teď ukázka)
+- [x] Stálý jídelní lístek z J_del_k.xlsx – data v `src/carte.py` (CS/DE/EN; u nápojů jsem doplnil překlady obecných názvů)
 - [ ] Pronájem: ceník a balíčky, kapacita terasy
 - [x] Fotky z `klient_raw` (zmenšené ve `src/assets/foto/`, výběr v `PHOTOS` v build.py)
 - [ ] Chybí fotka terasy s výhledem na ferratu – u bloku „Terasa pod skalou“ je zatím Aperol spritz

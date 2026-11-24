@@ -5,6 +5,7 @@ Spuštění:  python3 build.py   →  vytvoří složku ../dist
 Texty se mění ve slovníku T, kontakty a otevírací doba v SITE.
 """
 import json, shutil, html
+from carte import FOOD, DRINKS
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -53,9 +54,10 @@ def prefix(lang): return "" if lang == "cs" else lang + "/"
 # ------------------------------------------------------------------ texty
 T = {
 "cs": {
+  "carte_h": "Stálý jídelní lístek", "carte_note": "Ze stálého lístku můžete vybírat po celý den.", "drinks_h": "Nápoje", "carte_jump": "Přejít na",
   "theme_toggle": "Přepnout světlý / tmavý režim",
   "locale": "cs-CZ", "sub": "restaurace",
-  "nav": {"menu": "Týdenní menu", "about": "O nás", "rental": "Pronájem prostor", "reviews": "Recenze", "contact": "Kontakt"},
+  "nav": {"menu": "Menu", "about": "O nás", "rental": "Pronájem prostor", "reviews": "Recenze", "contact": "Kontakt"},
   "cta": "Rezervovat stůl", "skip": "Přeskočit na obsah", "menu_toggle": "Otevřít menu",
   "days": ["Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle"],
   "closed": "Zavřeno",
@@ -103,11 +105,10 @@ T = {
   "f_visit": "Navštivte", "f_follow": "Sledujte nás", "f_penzion": "Penzion Via Ferrata", "f_privacy": "Ochrana osobních údajů",
   "rights": "Všechna práva vyhrazena.",
   # menu stránka
-  "menu_title": "Týdenní menu – Restaurace Via Ferrata Děčín",
-  "menu_desc": "Aktuální týdenní polední menu Restaurace Via Ferrata v Děčíně. Poctivá kuchyně, nové menu každý týden.",
-  "menu_sub_h": "Týdenní menu", "menu_sub_p": "Nové polední menu každý týden. Stálý lístek najdete níže.",
-  "carte_h": "Stálý lístek", "carte_note": "Ukázka struktury lístku, položky a ceny doplníme.",
-  "carte": [
+  "menu_title": "Menu – týdenní menu a jídelní lístek – Restaurace Via Ferrata Děčín",
+  "menu_desc": "Týdenní polední menu a stálý jídelní lístek Restaurace Via Ferrata v Děčíně. Poctivá kuchyně, nové menu každý týden.",
+  "menu_sub_h": "Menu", "menu_sub_p": "Týdenní polední menu a stálý jídelní lístek na jednom místě.",
+    "carte": [
     ["Polévky", [["Kulajda", "s vejcem a koprem", "— Kč"], ["Hovězí vývar", "s nudlemi a zeleninou", "— Kč"]]],
     ["Hlavní jídla", [["Pečená kachna", "červené zelí, knedlíky", "— Kč"], ["Burger Via Ferrata", "hovězí, slanina, cheddar, hranolky", "— Kč"], ["Těstoviny dle sezóny", "", "— Kč"], ["Smažený sýr", "hranolky, tatarská omáčka", "— Kč"]]],
     ["Dezerty a káva", [["Domácí dezert dne", "", "— Kč"], ["Espresso", "", "— Kč"]]],
@@ -158,9 +159,10 @@ T = {
   },
 },
 "en": {
+  "carte_h": "Regular menu", "carte_note": "You can order from the regular menu all day long.", "drinks_h": "Drinks", "carte_jump": "Jump to",
   "theme_toggle": "Toggle light / dark mode",
   "locale": "en-GB", "sub": "restaurant",
-  "nav": {"menu": "Weekly menu", "about": "About", "rental": "Private hire", "reviews": "Reviews", "contact": "Contact"},
+  "nav": {"menu": "Menu", "about": "About", "rental": "Private hire", "reviews": "Reviews", "contact": "Contact"},
   "cta": "Book a table", "skip": "Skip to content", "menu_toggle": "Open menu",
   "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
   "closed": "Closed",
@@ -207,11 +209,10 @@ T = {
   "f_about": "A family restaurant on the ground floor of Penzion Via Ferrata in Děčín. Great, honest food with a view of the via ferrata and the castle.",
   "f_visit": "Visit", "f_follow": "Follow us", "f_penzion": "Penzion Via Ferrata", "f_privacy": "Privacy policy",
   "rights": "All rights reserved.",
-  "menu_title": "Weekly menu – Restaurant Via Ferrata Děčín",
+  "menu_title": "Menu – weekly lunch menu and regular menu – Restaurant Via Ferrata Děčín",
   "menu_desc": "This week's lunch menu at Restaurant Via Ferrata in Děčín. Honest cooking, new menu every week.",
-  "menu_sub_h": "Weekly menu", "menu_sub_p": "A new lunch menu every week. The regular menu is below.",
-  "carte_h": "Regular menu", "carte_note": "Sample layout; dishes and prices will be added.",
-  "carte": [
+  "menu_sub_h": "Menu", "menu_sub_p": "Our weekly lunch menu and regular menu in one place.",
+    "carte": [
     ["Soups", [["Kulajda", "creamy dill and mushroom soup with egg", "— CZK"], ["Beef broth", "with noodles and vegetables", "— CZK"]]],
     ["Mains", [["Roast duck", "red cabbage, dumplings", "— CZK"], ["Via Ferrata burger", "beef, bacon, cheddar, fries", "— CZK"], ["Seasonal pasta", "", "— CZK"], ["Fried cheese", "fries, tartar sauce", "— CZK"]]],
     ["Desserts and coffee", [["Homemade dessert of the day", "", "— CZK"], ["Espresso", "", "— CZK"]]],
@@ -260,9 +261,10 @@ T = {
   },
 },
 "de": {
+  "carte_h": "Feste Speisekarte", "carte_note": "Aus der Speisekarte können Sie den ganzen Tag bestellen.", "drinks_h": "Getränke", "carte_jump": "Springen zu",
   "theme_toggle": "Hell- / Dunkelmodus umschalten",
   "locale": "de-DE", "sub": "restaurant",
-  "nav": {"menu": "Wochenmenü", "about": "Über uns", "rental": "Raumvermietung", "reviews": "Bewertungen", "contact": "Kontakt"},
+  "nav": {"menu": "Speisekarte", "about": "Über uns", "rental": "Raumvermietung", "reviews": "Bewertungen", "contact": "Kontakt"},
   "cta": "Tisch reservieren", "skip": "Zum Inhalt springen", "menu_toggle": "Menü öffnen",
   "days": ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
   "closed": "Geschlossen",
@@ -309,11 +311,10 @@ T = {
   "f_about": "Familienrestaurant im Erdgeschoss der Pension Via Ferrata in Děčín. Hervorragende, ehrliche Küche mit Blick auf Klettersteig und Schloss.",
   "f_visit": "Besuchen", "f_follow": "Folgen Sie uns", "f_penzion": "Pension Via Ferrata", "f_privacy": "Datenschutz",
   "rights": "Alle Rechte vorbehalten.",
-  "menu_title": "Wochenmenü – Restaurant Via Ferrata Děčín",
+  "menu_title": "Speisekarte und Wochenmenü – Restaurant Via Ferrata Děčín",
   "menu_desc": "Das aktuelle Mittagsmenü des Restaurants Via Ferrata in Děčín. Ehrliche Küche, jede Woche neu.",
-  "menu_sub_h": "Wochenmenü", "menu_sub_p": "Jede Woche ein neues Mittagsmenü. Die feste Speisekarte finden Sie unten.",
-  "carte_h": "Speisekarte", "carte_note": "Beispielhafter Aufbau, Gerichte und Preise folgen.",
-  "carte": [
+  "menu_sub_h": "Speisekarte", "menu_sub_p": "Wöchentliches Mittagsmenü und feste Speisekarte auf einen Blick.",
+    "carte": [
     ["Suppen", [["Kulajda", "Dill-Pilz-Rahmsuppe mit Ei", "— CZK"], ["Rinderbrühe", "mit Nudeln und Gemüse", "— CZK"]]],
     ["Hauptgerichte", [["Gebratene Ente", "Rotkraut, Knödel", "— CZK"], ["Via Ferrata Burger", "Rind, Speck, Cheddar, Pommes", "— CZK"], ["Saisonale Pasta", "", "— CZK"], ["Gebackener Käse", "Pommes, Remoulade", "— CZK"]]],
     ["Desserts und Kaffee", [["Hausgemachtes Dessert des Tages", "", "— CZK"], ["Espresso", "", "— CZK"]]],
@@ -619,10 +620,21 @@ def contact_block(lang):
 # ------------------------------------------------------------------ menu
 def menu_page(lang):
     t = T[lang]; up = "" if lang == "cs" else "../"
+    LI = {"cs": 0, "de": 1, "en": 2}[lang]
+    def price(v):
+        if v is None: return ""
+        return f"{v} Kč" if lang == "cs" else (f"CZK {v}" if lang == "en" else f"{v} CZK")
+    def nm(it):
+        return it[1 + LI] or it[1]
+    chips = "".join(f'<a href="#{slug}">{titles[LI]}</a>' for titles, slug, _ in FOOD) + f'<a href="#napoje">{t["drinks_h"]}</a>'
     carte = ""
-    for sec, items in t["carte"]:
-        carte += f"<h3>{sec}</h3>" + "".join(
-            f'<div class="dish"><div><b>{n}</b>{f"<small>{d}</small>" if d else ""}</div><span class="price">{p}</span></div>' for n, d, p in items)
+    for titles, slug, items in FOOD:
+        rows = "".join(f'<div class="dish"><div><b>{e(nm(it))}</b>{f"<small>{e(it[0])}</small>" if it[0] else ""}</div><span class="price">{price(it[4])}</span></div>' for it in items)
+        carte += f'<section class="carte-sec" id="{slug}"><h3>{titles[LI]}</h3><div class="carte">{rows}</div></section>'
+    drinks = ""
+    for titles, items in DRINKS:
+        rows = "".join(f'<li><span>{e(nm(it))}{f" <small>{e(it[0])}</small>" if it[0] else ""}</span><span class="price">{price(it[4])}</span></li>' for it in items)
+        drinks += f'<div class="drink-card"><h4>{titles[LI]}</h4><ul>{rows}</ul></div>'
     body = f"""
 <section class="sub-hero">
   <div class="wrap">
@@ -647,11 +659,13 @@ def menu_page(lang):
   </div>
 </section>
 {menu_dialog(lang)}
-<section class="band alt">
+<section class="band alt" id="listek">
   <div class="wrap">
     <h2>{t["carte_h"]}</h2>
-    <p class="note">{t["carte_note"]}</p>
-    <div class="carte">{carte}</div>
+    <p class="muted">{t["carte_note"]}</p>
+    <nav class="chips" aria-label="{t["carte_jump"]}">{chips}</nav>
+    {carte}
+    <section class="carte-sec" id="napoje"><h3>{t["drinks_h"]}</h3><div class="drinks">{drinks}</div></section>
   </div>
 </section>
 <section class="band">

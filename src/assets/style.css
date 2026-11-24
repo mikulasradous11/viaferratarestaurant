@@ -256,11 +256,24 @@ fieldset{border:0;padding:0;margin:0}
 .steps li::before{content:counter(s);font:300 30px/1 var(--serif);color:var(--accent-ink);display:block;margin-bottom:14px}
 .steps h3{font-size:19px}
 .steps p{font-size:15px;color:var(--muted)}
-.carte{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 72px;margin-top:40px}
-.carte h3{grid-column:1/-1;margin:34px 0 6px;font-size:24px}
+.carte{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 72px}
+.carte-sec{scroll-margin-top:150px;margin-top:56px}
+.carte-sec h3{font-size:26px;margin:0 0 10px;padding-bottom:14px;border-bottom:1px solid var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0;padding:12px 0;position:sticky;top:76px;z-index:5;background:var(--bg2)}
+.chips a{flex:none;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:1px solid var(--line);border-radius:999px;font:600 14px/1 var(--sans);text-decoration:none;background:var(--bg);white-space:nowrap}
+.chips a:hover{border-color:var(--ink)}
+.dish b{font-weight:400;display:block;line-height:1.45}
+.drinks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:20px}
+.drink-card{background:var(--bg);border:1px solid var(--line);padding:24px 24px 14px}
+.drink-card h4{font:700 15px/1.2 var(--sans);margin:0 0 10px}
+.drink-card ul{list-style:none;margin:0;padding:0}
+.drink-card li{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:8px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.4}
+.drink-card li:first-child{border-top:0}
+.drink-card .price{white-space:nowrap;flex:none;font:600 15px/1.4 var(--sans)}
+.drink-card li>span:first-child{min-width:0}
+.drink-card small{font:500 13px/1 var(--sans);color:var(--muted);white-space:nowrap}
 .dish{display:flex;align-items:baseline;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
 .dish div{flex:1}
-.dish b{font-weight:400;display:block}
 .dish small{font:500 14px/1.4 var(--sans);color:var(--muted)}
 .dish .price{font:600 16px/1 var(--sans);white-space:nowrap}
 
@@ -310,9 +323,12 @@ dialog .btn{min-height:42px}
   .feats,.steps{grid-template-columns:minmax(0,1fr)}
   .aside{position:static}
   .carte{grid-template-columns:minmax(0,1fr)}
+  .drinks{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:600px){
   body{font-size:16px}
+  .drinks{grid-template-columns:minmax(0,1fr)}
+  .chips{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1*max(5vw,18px));padding-inline:max(5vw,18px);top:76px}
   .map{min-height:360px;height:auto}
   .facts .wrap{grid-template-columns:minmax(0,1fr)}
   .fact,.fact+.fact{padding:20px 0;border-left:0}
