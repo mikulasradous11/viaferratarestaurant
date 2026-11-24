@@ -795,6 +795,34 @@ def main():
         UP = "" if lang == "cs" else "../"
         for key, fn in [("home", home), ("menu", menu_page), ("reserve", reserve_page), ("rental", rental_page)]:
             (out / PAGES[key][lang]).write_text(fn(lang), encoding="utf-8")
+    # 404, robots, sitemap
+    UP = ""
+    t = T["cs"]
+    body404 = f"""
+<section class="sub-hero" style="min-height:70vh;border:0">
+  <div class="wrap">
+    <p class="label">404</p>
+    <h1>Tato stránka neexistuje</h1>
+    <p class="lead">Možná byla přesunuta. Pokračujte na úvod, týdenní menu nebo si rovnou rezervujte stůl.</p>
+    <p class="lead" lang="en" style="font-size:16px">This page doesn’t exist. · Diese Seite existiert nicht.</p>
+    <div class="btns" style="margin-top:28px"><a class="btn" href="/">Úvod</a><a class="btn ghost" href="/menu.html">{t["nav"]["menu"]}</a><a class="btn ghost" href="/rezervace.html">{t["cta"]}</a></div>
+  </div>
+</section>"""
+    html404 = page("cs", "home", "Stránka nenalezena – Restaurace Via Ferrata", t["home_desc"], body404, solid=True)
+    # absolutní cesty, protože 404 se zobrazuje na libovolné adrese
+    html404 = html404.replace('href="assets/', 'href="/assets/').replace('src="assets/', 'src="/assets/').replace('href="index.html', 'href="/index.html').replace('href="menu.html', 'href="/menu.html').replace('href="rezervace.html', 'href="/rezervace.html').replace('href="pronajem.html', 'href="/pronajem.html').replace('href="en/', 'href="/en/').replace('href="de/', 'href="/de/')
+    html404 = html404.replace('<link rel="canonical"', '<meta name="robots" content="noindex"><link rel="canonical"')
+    (DIST / "404.html").write_text(html404, encoding="utf-8")
+    base = SITE["base_url"].rstrip("/")
+    (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n", encoding="utf-8")
+    urls = []
+    for key in PAGES:
+        for lang in LANGS:
+            fn = PAGES[key][lang]
+            path = prefix(lang) + ("" if fn == "index.html" else fn)
+            alts = "".join(f'<xhtml:link rel="alternate" hreflang="{l}" href="{base}/{prefix(l)}{"" if PAGES[key][l] == "index.html" else PAGES[key][l]}"/>' for l in LANGS)
+            urls.append(f"<url><loc>{base}/{path}</loc>{alts}</url>")
+    (DIST / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "\n".join(urls) + "\n</urlset>\n", encoding="utf-8")
     print("hotovo:", sorted(str(p.relative_to(DIST)) for p in DIST.rglob("*.html")))
 
 if __name__ == "__main__":

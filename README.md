@@ -48,3 +48,10 @@ Pronájem celé restaurace: poptávkový formulář připraví e-mail. Kdyby se 
 - [ ] Recenze: Vojtěch K. a Conrad H. jsou z Googlu. Česká verze recenze Jardy L. je zpětně přeložená z anglického překladu Googlu, nahraďte ji originálem.
 - [ ] Hodnocení 4,5 / 37 recenzí na Google (stav k 24. 11. 2026) – průběžně aktualizovat
 - [ ] Stránka Ochrana osobních údajů (odkaz v patičce)
+
+## Nasazení (GitHub + Vercel)
+
+- `vercel.json` v kořeni říká Vercelu, že web je ve složce `dist` (žádný build).
+- Adresy končí na `.html`, jazykové verze lomítkem: `/en/`, `/de/`, `/rezervace.html`, `/en/reservation.html`…
+- `dist/404.html`, `dist/robots.txt`, `dist/sitemap.xml` jsou generované z `src/build.py`.
+- Po každé úpravě textů: `python3 src/build.py`, commit a push – Vercel nasadí sám.
